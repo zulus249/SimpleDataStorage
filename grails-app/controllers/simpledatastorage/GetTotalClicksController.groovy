@@ -2,5 +2,8 @@ package simpledatastorage
 
 class GetTotalClicksController {
 
-    def index() { }
+    def index() {
+
+
+    }
 }

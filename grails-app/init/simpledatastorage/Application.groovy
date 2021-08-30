@@ -7,7 +7,11 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 class Application extends GrailsAutoConfiguration {
+    static DataStorage dataStorage
+
     static void main(String[] args) {
         GrailsApp.run(Application, args)
+        dataStorage = new DataStorage()
+        dataStorage.fullImport()
     }
 }
