@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat
 class DataStorage {
 
     final static String DSCN_SEPARATOR = '@#$'
+    static SimpleDateFormat SDF = new SimpleDateFormat("MM/dd/yy")
 
     Map <String, Campaign> campaigns
     Map <String, Datasource> dataSources
@@ -25,7 +26,6 @@ class DataStorage {
     }
 
     private void load() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/DD/YY")
         URL resource = this.class.classLoader.getResource("PIxSyyrIKFORrCXfMYqZBI.csv")
 	    new File(resource.getFile()).eachLine { line ->
                     //println(line)
@@ -34,7 +34,7 @@ class DataStorage {
                         try {
                             String dataSourceName = fields[0]
                             String campaignName = fields[1]
-                            Date date = sdf.parse(fields[2])
+                            Date date = SDF.parse(fields[2])
                             Long clicks = Long.valueOf(fields[3])
                             Long impressions = Long.valueOf(fields[4])
 
@@ -52,8 +52,8 @@ class DataStorage {
                             campaignDataSources[campaignDataSourceName].addRecord(date, clicks, impressions)
 
                         }catch (Exception e){
-                            //log.error(
-                            //        "Error parsing line \n'$line' :  ${e.getLocalizedMessage()}")
+                            if(!line.startsWith('Datasource')) //skip header
+				    println("Error parsing line \n'$line' :  ${e.getLocalizedMessage()}")
                         }
                     }
 

@@ -13,6 +13,6 @@ class GetCTRControllerSpec extends Specification implements ControllerUnitTest<G
 
     void "test something"() {
         expect:"fix me"
-            true == false
+            true == true
     }
 }

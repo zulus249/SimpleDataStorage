@@ -2,6 +2,8 @@ package simpledatastorage.utils
 
 import simpledatastorage.Application
 
+/** @todo: Consider using JSON parser
+ * */
 class Result {
 
     final static int OK = 0
@@ -28,6 +30,6 @@ class Result {
 
     @Override
     String toString() {
-        return "size: ${Application.dataStorage.campaigns.size()} ${Application.dataStorage.dataSources.size()} ${Application.dataStorage.campaignDataSources.size()}{\"resultName\":\"$resultName\", \"resultValue\":\"$resultValue\", \"errorCode\":$errorCode, \"errorMessage\":\"${ERROR_MESSAGES[errorCode]}\"}"
+        return "{\"resultName\":\"$resultName\", \"resultValue\":\"$resultValue\", \"errorCode\":$errorCode, \"errorMessage\":\"${ERROR_MESSAGES[errorCode]}\"}"
     }
 }

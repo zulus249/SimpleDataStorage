@@ -6,52 +6,57 @@ class DataHolder {
     final static int MONTH = 1
     final static int DAY = 2
 
-    protected Map <Date, Long> dailyClicks = [:]
-    protected Map <Date, Long> dailyImpressions = [:]
+    protected Map <String, Long> dailyClicks = [:]
+    protected Map <String, Long> dailyImpressions = [:]
     protected Map <String, Long> monthlyClicks = [:]
     protected Map <String, Long> monthlyImpressions = [:]
     protected Map <Integer, Long> annualClicks = [:]
     protected Map <Integer, Long> annualImpressions = [:]
 
     void addRecord(Date date, long clicks, long impressions) {
-
+	//println("adding records for $date $clicks $impressions")
         Calendar calendar = Calendar.getInstance()
         calendar.setTime(date)
         Integer year = calendar.get(Calendar.YEAR)
         Integer month = calendar.get(Calendar.MONTH) + 1
-        String yearMonth = "$year|$month"
+        Integer day = calendar.get(Calendar.DAY_OF_MONTH)
+	String yearMonth = "${year}${month}"
+	String sDate = "${year}${month}${day}"
 
-        if(dailyClicks[date] == null){
-            dailyClicks[date] = clicks
+        if(dailyClicks[sDate] == null){
+            dailyClicks[sDate] = clicks
         }else {
-            dailyClicks[date] = dailyClicks[date] + clicks
+            dailyClicks[sDate] += clicks
         }
-        if(dailyImpressions[date] == null){
-            dailyImpressions[date] = impressions
+	if (this instanceof Datasource && year == 2020 && month == 1 && day == 1)
+		println "$this $date -> ${dailyClicks[sDate]}"
+
+        if(dailyImpressions[sDate] == null){
+            dailyImpressions[sDate] = impressions
         }else {
-            dailyImpressions[date] = dailyImpressions[date] + impressions
+            dailyImpressions[sDate] += impressions
         }
 
         if(monthlyClicks[yearMonth] == null){
-            monthlyClicks[yearMonth] = clicks
+            monthlyClicks[yearMonth] = new Long(clicks)
         }else {
             monthlyClicks[yearMonth] = monthlyClicks[yearMonth] + clicks
         }
         if(monthlyImpressions[yearMonth] == null){
             monthlyImpressions[yearMonth] = impressions
         }else {
-            monthlyImpressions[yearMonth] = monthlyImpressions[yearMonth] + impressions
+            monthlyImpressions[yearMonth] += impressions
         }
 
         if(annualClicks[year] == null){
-            annualClicks[year] = clicks
+            annualClicks[year] = new Long(clicks)
         }else {
             annualClicks[year] = annualClicks[year] + clicks
         }
         if(annualImpressions[year] == null){
             annualImpressions[year] = impressions
         }else {
-            annualImpressions[year] = annualImpressions[year] + impressions
+            annualImpressions[year] += impressions
         }
     }
 
@@ -73,8 +78,9 @@ class DataHolder {
     public long getClicks(Date startDate, Date endDate){
         int[] itStart = splitDate(startDate)
         int[] itEnd = splitDate(endDate)
-        long clicks
+        Long clicks
         long totalClicks = 0
+	println "$this $startDate ${dailyClicks[startDate]}"
 
         // get full years
         for(Integer year = itStart[YEAR] + 1; year < itEnd[YEAR]; year++){
@@ -104,24 +110,21 @@ class DataHolder {
         }
 
         // get days
-        Calendar calendar = Calendar.getInstance()
         if(itStart[YEAR] == itEnd[YEAR] && itStart[MONTH] == itEnd[MONTH]) {
             for(int day = itStart[DAY]; day <= itEnd[DAY]; day++){
-                calendar.set(itStart[YEAR], itStart[MONTH] - 1, day)
-                clicks = dailyClicks[calendar.getTime()]
+                clicks = dailyClicks["${itStart[YEAR]}${itStart[MONTH]}${day}"]
+		println("CLICK! ${clicks}")
                 if(clicks)
                         totalClicks += clicks
             }
         } else if(itStart[YEAR] < itEnd[YEAR] || itStart[YEAR] == itEnd[YEAR] && itStart[MONTH] < itEnd[MONTH]){
             for(int day = itStart[DAY]; day <= 31; day++){
-                calendar.set(itStart[YEAR], itStart[MONTH] - 1, day)
-                clicks = dailyClicks[calendar.getTime()]
+            clicks = dailyClicks["${itStart[YEAR]}${itStart[MONTH]}${itStart[day]}"]
                 if(clicks)
                         totalClicks += clicks
             }
             for(int day = 1; day <= itEnd[DAY]; day++){
-                calendar.set(itEnd[YEAR], itEnd[MONTH] - 1, day)
-                clicks = dailyClicks[calendar.getTime()]
+                clicks = dailyClicks["${itEnd[YEAR]}${itEnd[MONTH]}${day}"]
                 if(clicks)
                         totalClicks += clicks
             }
@@ -133,7 +136,7 @@ class DataHolder {
     long getImpressions(Date startDate, Date endDate){
         int[] itStart = splitDate(startDate)
         int[] itEnd = splitDate(endDate)
-        long impressions
+        Long impressions
         long totalImpressions = 0
 
         // get full years

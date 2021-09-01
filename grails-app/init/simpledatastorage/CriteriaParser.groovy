@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
  * @todo Consider parsing other formats
  * */
 class CriteriaParser {
-    static SimpleDateFormat sdfMMDDYY = new SimpleDateFormat("MM/DD/YY")
+    static SimpleDateFormat sdfMMDDYY = new SimpleDateFormat("MM/dd/yy")
 
     static Date[] parsePeriod(String sStartDate, String sEndDate){
 
@@ -34,7 +34,7 @@ class CriteriaParser {
             return Application.dataStorage.campaigns.get(campaignName)
 
         }else if(dataSourceName != null){
-            return Application.dataStorage.dataSources.get(campaignName)
+            return Application.dataStorage.dataSources.get(dataSourceName)
         }else{
             return null
         }
