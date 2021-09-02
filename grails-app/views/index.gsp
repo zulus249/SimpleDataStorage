@@ -58,9 +58,9 @@
             <h2>API Usage Examples:</h2>
             <li>
                 <ul>
-                    <li><a href="http://localhost:8080/getClicks?c=Adventmarkt Touristik&ds=Google Ads&start=01/01/18&end=01/01/20">http://localhost:8080/getClicks?c=Adventmarkt Touristik&ds=Google Ads&start=01/01/18&end=01/01/20</a></li>
-                    <li><a href="http://localhost:8080/getImpressions?&ds=Facebook Ads&start=01/07/15&end=01/01/20">http://localhost:8080/getImpressions?&ds=Facebook Ads&start=01/07/15&end=01/01/20</a></li>
-                    <li><a href="http://localhost:8080/getCTR?c=Adventmarkt Touristik&start=01/07/18&end=01/01/19">http://localhost:8080/getCTR?c=Adventmarkt Touristik&start=01/07/18&end=01/01/19</a></li>
+                    <li><a href="getClicks?c=Adventmarkt Touristik&ds=Google Ads&start=01/01/18&end=01/01/20">/getClicks?c=Adventmarkt Touristik&ds=Google Ads&start=01/01/18&end=01/01/20</a></li>
+                    <li><a href="getImpressions?&ds=Facebook Ads&start=01/07/15&end=01/01/20">/getImpressions?&ds=Facebook Ads&start=01/07/15&end=01/01/20</a></li>
+                    <li><a href="getCTR?c=Adventmarkt Touristik&start=01/07/18&end=01/01/19">/getCTR?c=Adventmarkt Touristik&start=01/07/18&end=01/01/19</a></li>
                 </ul>
             </li>
         </div>
