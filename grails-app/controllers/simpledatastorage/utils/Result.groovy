@@ -2,7 +2,7 @@ package simpledatastorage.utils
 
 import simpledatastorage.Application
 
-/** @todo: Consider using JSON parser
+/** @todo: Consider using better JSON parser
  * */
 class Result {
 

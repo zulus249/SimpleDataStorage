@@ -9,9 +9,4 @@ class CampaignDatasource extends DataHolder{
         this.datasource = dataSource
     }
 
-    void addRecord(Date date, long clicks, long impressions) {
-        super.addRecord(date, clicks, impressions)
-        campaign.addRecord(date, clicks, impressions)
-        datasource.addRecord(date, clicks, impressions)
-    }
 }

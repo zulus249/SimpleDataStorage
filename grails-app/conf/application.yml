@@ -103,6 +103,8 @@ dataSource:
     driverClassName: org.h2.Driver
     username: sa
     password: ''
+    
+dataFile: PIxSyyrIKFORrCXfMYqZBI.csv
 
 environments:
     development:

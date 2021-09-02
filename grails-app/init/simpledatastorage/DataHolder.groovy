@@ -20,16 +20,16 @@ class DataHolder {
         Integer year = calendar.get(Calendar.YEAR)
         Integer month = calendar.get(Calendar.MONTH) + 1
         Integer day = calendar.get(Calendar.DAY_OF_MONTH)
-	String yearMonth = "${year}${month}"
-	String sDate = "${year}${month}${day}"
+    	String yearMonth = "${year}|${month}"
+	    String sDate = "${year}|${month}|${day}"
 
         if(dailyClicks[sDate] == null){
             dailyClicks[sDate] = clicks
         }else {
             dailyClicks[sDate] += clicks
         }
-	if (this instanceof Datasource && year == 2020 && month == 1 && day == 1)
-		println "$this $date -> ${dailyClicks[sDate]}"
+	//if (this instanceof Datasource && year == 2020 && month == 1 && day == 1)
+	//	println "$this $date -> ${dailyClicks[sDate]}"
 
         if(dailyImpressions[sDate] == null){
             dailyImpressions[sDate] = impressions
@@ -80,7 +80,7 @@ class DataHolder {
         int[] itEnd = splitDate(endDate)
         Long clicks
         long totalClicks = 0
-	println "$this $startDate ${dailyClicks[startDate]}"
+	//println "$this $startDate ${dailyClicks[startDate]}"
 
         // get full years
         for(Integer year = itStart[YEAR] + 1; year < itEnd[YEAR]; year++){
@@ -112,19 +112,18 @@ class DataHolder {
         // get days
         if(itStart[YEAR] == itEnd[YEAR] && itStart[MONTH] == itEnd[MONTH]) {
             for(int day = itStart[DAY]; day <= itEnd[DAY]; day++){
-                clicks = dailyClicks["${itStart[YEAR]}${itStart[MONTH]}${day}"]
-		println("CLICK! ${clicks}")
+                clicks = dailyClicks["${itStart[YEAR]}|${itStart[MONTH]}|${day}"]
                 if(clicks)
                         totalClicks += clicks
             }
         } else if(itStart[YEAR] < itEnd[YEAR] || itStart[YEAR] == itEnd[YEAR] && itStart[MONTH] < itEnd[MONTH]){
             for(int day = itStart[DAY]; day <= 31; day++){
-            clicks = dailyClicks["${itStart[YEAR]}${itStart[MONTH]}${itStart[day]}"]
+            clicks = dailyClicks["${itStart[YEAR]}|${itStart[MONTH]}|${day}"]
                 if(clicks)
                         totalClicks += clicks
             }
             for(int day = 1; day <= itEnd[DAY]; day++){
-                clicks = dailyClicks["${itEnd[YEAR]}${itEnd[MONTH]}${day}"]
+                clicks = dailyClicks["${itEnd[YEAR]}|${itEnd[MONTH]}|${day}"]
                 if(clicks)
                         totalClicks += clicks
             }
@@ -167,24 +166,20 @@ class DataHolder {
         }
 
         // get days
-        Calendar calendar = Calendar.getInstance()
         if(itStart[YEAR] == itEnd[YEAR] && itStart[MONTH] == itEnd[MONTH]) {
             for(int day = itStart[DAY]; day <= itEnd[DAY]; day++){
-                calendar.set(itStart[YEAR], itStart[MONTH] - 1, day)
-                impressions = dailyImpressions[calendar.getTime()]
+                impressions = dailyImpressions["${itStart[YEAR]}|${itStart[MONTH]}|${day}"]
                 if(impressions)
                     totalImpressions += impressions
             }
         } else if(itStart[YEAR] < itEnd[YEAR] || itStart[YEAR] == itEnd[YEAR] && itStart[MONTH] < itEnd[MONTH]){
             for(int day = itStart[DAY]; day <= 31; day++){
-                calendar.set(itStart[YEAR], itStart[MONTH] - 1, day)
-                impressions = dailyImpressions[calendar.getTime()]
+                impressions = dailyImpressions["${itStart[YEAR]}|${itStart[MONTH]}|${day}"]
                 if(impressions)
                     totalImpressions += impressions
             }
             for(int day = 1; day <= itEnd[DAY]; day++){
-                calendar.set(itEnd[YEAR], itEnd[MONTH] - 1, day)
-                impressions = dailyImpressions[calendar.getTime()]
+                impressions = dailyImpressions["${itEnd[YEAR]}|${itEnd[MONTH]}|${day}"]
                 if(impressions)
                     totalImpressions += impressions
             }
@@ -193,4 +188,11 @@ class DataHolder {
         return totalImpressions
     }
 
+    Double getCTR(Date startDate, Date endDate){
+        double impressions = (double)getImpressions(startDate, endDate)
+        if(impressions == 0)
+                return null
+                
+        return (double)getClicks(startDate, endDate)/impressions
+    }
 }

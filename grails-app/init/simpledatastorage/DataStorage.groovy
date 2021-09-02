@@ -14,6 +14,13 @@ class DataStorage {
     Map <String, Datasource> dataSources
     Map <String, CampaignDatasource> campaignDataSources
 
+    private String filename
+    
+    public DataStorage(String filename){
+        this.filename = filename
+    }
+    
+    
     void fullImport(){
         campaigns = [:]
         dataSources = [:]
@@ -26,7 +33,7 @@ class DataStorage {
     }
 
     private void load() {
-        URL resource = this.class.classLoader.getResource("PIxSyyrIKFORrCXfMYqZBI.csv")
+        URL resource = this.class.classLoader.getResource(filename)
 	    new File(resource.getFile()).eachLine { line ->
                     //println(line)
                     String[] fields = line.split(',')
@@ -41,10 +48,12 @@ class DataStorage {
                             if(campaigns[campaignName] == null)
                                     campaigns[campaignName] = new Campaign()
                             Campaign campaign = campaigns[campaignName]
-
-                            if(dataSources[dataSourceName] == null)
+            			    campaigns[campaignName].addRecord(date, clicks, impressions)
+                            
+			                if(dataSources[dataSourceName] == null)
                                     dataSources[dataSourceName] = new Datasource()
                             Datasource dataSource = dataSources[dataSourceName]
+			                dataSources[dataSourceName].addRecord(date, clicks, impressions)
 
                             String campaignDataSourceName = "${campaignName}${DSCN_SEPARATOR}${dataSourceName}"
                             if(campaignDataSources[campaignDataSourceName] == null)

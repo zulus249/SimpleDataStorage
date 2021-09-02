@@ -26,13 +26,12 @@ class GetCTRController {
             return
         }
 
-        long impressions = dh.getImpressions(dates[0], dates[1])
-        if (impressions == 0L) {
+        resultCTR =  dh.getCTR(dates[0], dates[1])
+        if (resultCTR == null) {
             render(new Result(resultName, '', Result.ERR_NO_IMPRESSIONS))
             return
         }
 
-        resultCTR =  (double)(dh.getClicks(dates[0], dates[1]))/(double)impressions
         render (new Result(resultName, "$resultCTR", Result.OK))
     }
 }
