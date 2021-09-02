@@ -11,8 +11,7 @@ class Application extends GrailsAutoConfiguration {
 
     static void main(String[] args) {
         GrailsApp.run(Application, args)
-
-	dataStorage = new DataStorage('PIxSyyrIKFORrCXfMYqZBI.csv')
+        dataStorage = new DataStorage('PIxSyyrIKFORrCXfMYqZBI.csv')
         dataStorage.fullImport()
     }
 }

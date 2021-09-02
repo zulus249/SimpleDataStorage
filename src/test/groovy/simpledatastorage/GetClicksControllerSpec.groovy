@@ -3,7 +3,7 @@ package simpledatastorage
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class GetTotalClicksControllerSpec extends Specification implements ControllerUnitTest<GetTotalClicksController> {
+class GetClicksControllerSpec extends Specification implements ControllerUnitTest<GetClicksController> {
 
     DataStorage dataStorage
 

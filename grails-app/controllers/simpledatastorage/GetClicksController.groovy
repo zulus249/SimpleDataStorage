@@ -2,7 +2,7 @@ package simpledatastorage
 
 import simpledatastorage.utils.Result
 
-class GetTotalClicksController {
+class GetClicksController {
 
     def index() {
         String dataSourceName = params.ds

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
+    <title>Simple Data storage</title>
 </head>
 <body>
 <content tag="nav">
@@ -51,24 +51,18 @@
 
 <div id="content" role="main">
     <section class="row colset-2-its">
-        <h1>Welcome to Grails</h1>
-
-        <p>
-            Congratulations, you have successfully started your first Grails application! At the moment
-            this is the default page, feel free to modify it to either redirect to a controller or display
-            whatever content you may choose. Below is a list of controllers that are currently deployed in
-            this application, click on each to execute its default action:
-        </p>
-
-        <div id="controllers" role="navigation">
-            <h2>Available Controllers:</h2>
-            <ul>
-                <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                    <li class="controller">
-                        <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-                    </li>
-                </g:each>
-            </ul>
+        <h1>Siple Data Storage</h1>
+        <div id="examples" role="navigation">
+           <h2>API Syntax:</h2><br/>
+            get{Clicks|Impressions|CTR}?start=[MM/dd/yy]&amp;end=[MM/dd/yy]&amp;{c=[CAMPAIGN]|ds=[DATA_SOURCE]}<br/>
+            <h2>API Usage Examples:</h2>
+            <li>
+                <ul>
+                    <li><a href="http://localhost:8080/getClicks?c=Adventmarkt Touristik&ds=Google Ads&start=01/01/18&end=01/01/20">http://localhost:8080/getClicks?c=Adventmarkt Touristik&ds=Google Ads&start=01/01/18&end=01/01/20</a></li>
+                    <li><a href="http://localhost:8080/getImpressions?&ds=Facebook Ads&start=01/07/15&end=01/01/20">http://localhost:8080/getImpressions?&ds=Facebook Ads&start=01/07/15&end=01/01/20</a></li>
+                    <li><a href="http://localhost:8080/getCTR?c=Adventmarkt Touristik&start=01/07/18&end=01/01/19">http://localhost:8080/getCTR?c=Adventmarkt Touristik&start=01/07/18&end=01/01/19</a></li>
+                </ul>
+            </li>
         </div>
     </section>
 </div>
